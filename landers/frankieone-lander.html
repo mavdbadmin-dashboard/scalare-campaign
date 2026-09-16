@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Compliance Company Inside Your Bank Has a Name | Scalare Partners</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* Reading progress bar */
+    #progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: #C0392B;
+      width: 0%;
+      z-index: 9999;
+      transition: width 0.1s linear;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #fff;
+      color: #1a1a1a;
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    /* Top bar */
+    .top-bar {
+      background: #1a1a1a;
+      color: #ccc;
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 9px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .top-bar .brand { color: #e8e8e8; font-weight: 600; }
+    .top-bar .report-label { color: #aaa; }
+
+    /* Paid content notice */
+    .paid-notice {
+      background: #faf9f7;
+      border-bottom: 1px solid #e5e0d8;
+      text-align: center;
+      padding: 7px 24px;
+      font-size: 10.5px;
+      font-family: 'Inter', sans-serif;
+      color: #888;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .paid-notice span { color: #C0392B; font-weight: 600; margin-right: 6px; }
+
+    /* Share bar */
+    .share-bar {
+      border-bottom: 1px solid #e8e2d9;
+      padding: 10px 0;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      background: #fff;
+    }
+    .share-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-family: 'Inter', sans-serif;
+      color: #555;
+      border: 1px solid #ddd;
+      padding: 5px 12px;
+      border-radius: 2px;
+      cursor: default;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+    .share-btn:hover { background: #f8f6f3; }
+
+    /* Main content wrapper */
+    .content-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Header */
+    .article-header {
+      padding: 36px 0 0;
+    }
+    .category-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #C0392B;
+      margin-bottom: 16px;
+    }
+    .article-headline {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1.15;
+      color: #111;
+      margin-bottom: 18px;
+      letter-spacing: -0.01em;
+    }
+    .article-subheadline {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 20px;
+      font-weight: 400;
+      font-style: italic;
+      color: #666;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+    .byline-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 14px 0;
+      border-top: 1px solid #e0dbd3;
+      border-bottom: 1px solid #e0dbd3;
+      margin-bottom: 28px;
+    }
+    .byline {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      color: #333;
+    }
+    .byline strong { font-weight: 600; color: #111; }
+    .byline-meta {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      color: #888;
+    }
+
+    /* Hero image */
+    .hero-image-wrap {
+      margin: 0 -24px 8px;
+    }
+    .hero-image-wrap img {
+      width: 100%;
+      height: 420px;
+      object-fit: cover;
+      display: block;
+    }
+    .image-caption {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      color: #888;
+      font-style: italic;
+      padding: 8px 24px 28px;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    /* Body text */
+    .article-body p {
+      font-family: 'Inter', sans-serif;
+      font-size: 17px;
+      line-height: 1.78;
+      color: #1a1a1a;
+      margin-bottom: 22px;
+      font-weight: 300;
+    }
+    .article-body p strong {
+      font-weight: 600;
+      color: #111;
+    }
+
+    /* Pull quote */
+    .pull-quote {
+      border-left: 3px solid #C0392B;
+      margin: 36px 0;
+      padding: 4px 0 4px 24px;
+    }
+    .pull-quote blockquote {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 24px;
+      font-style: italic;
+      font-weight: 400;
+      color: #222;
+      line-height: 1.45;
+    }
+    .pull-quote cite {
+      display: block;
+      margin-top: 10px;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-style: normal;
+      color: #888;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* Section divider */
+    .section-divider {
+      border: none;
+      border-top: 1px solid #e0dbd3;
+      margin: 36px 0;
+    }
+
+    /* Access box */
+    .access-box {
+      background: #f8f6f2;
+      border: 1px solid #e5e0d8;
+      border-left: 3px solid #1a1a1a;
+      padding: 28px 32px;
+      margin: 40px 0;
+    }
+    .access-box h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #555;
+      margin-bottom: 16px;
+    }
+    .access-box p {
+      font-family: 'Inter', sans-serif;
+      font-size: 14.5px;
+      line-height: 1.7;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    .access-box p:last-child { margin-bottom: 0; }
+    .access-box strong { font-weight: 600; color: #111; }
+
+    /* Related articles */
+    .related-section {
+      border-top: 2px solid #1a1a1a;
+      padding-top: 24px;
+      margin: 40px 0;
+    }
+    .related-section h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #555;
+      margin-bottom: 20px;
+    }
+    .related-list { list-style: none; }
+    .related-list li {
+      padding: 14px 0;
+      border-bottom: 1px solid #e8e2d9;
+    }
+    .related-list li:last-child { border-bottom: none; }
+    .related-list a {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 17px;
+      font-weight: 600;
+      color: #111;
+      text-decoration: none;
+      line-height: 1.3;
+    }
+    .related-list a:hover { color: #C0392B; }
+    .related-list .related-meta {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      color: #999;
+      margin-top: 4px;
+    }
+
+    /* Disclosure */
+    .disclosure {
+      border-top: 1px solid #e0dbd3;
+      padding: 24px 0 48px;
+      font-family: 'Inter', sans-serif;
+      font-size: 11.5px;
+      color: #999;
+      line-height: 1.7;
+    }
+    .disclosure strong { color: #777; }
+
+    /* Bottom paid notice */
+    .paid-notice-bottom {
+      background: #f8f6f2;
+      border-top: 1px solid #e5e0d8;
+      text-align: center;
+      padding: 10px 24px;
+      font-size: 10.5px;
+      font-family: 'Inter', sans-serif;
+      color: #888;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .paid-notice-bottom span { color: #C0392B; font-weight: 600; margin-right: 6px; }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      .article-headline { font-size: 32px; }
+      .article-subheadline { font-size: 17px; }
+      .hero-image-wrap img { height: 240px; }
+      .pull-quote blockquote { font-size: 20px; }
+      .access-box { padding: 20px; }
+      .top-bar { font-size: 10px; padding: 8px 14px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="progress-bar"></div>
+
+  <!-- Top bar -->
+  <div class="top-bar">
+    <span class="brand">SCALARE PARTNERS | ASX: SCP</span>
+    <span class="report-label">INVESTOR AWARENESS REPORT</span>
+  </div>
+
+  <!-- Paid content notice -->
+  <div class="paid-notice">
+    <span>PAID CONTENT</span> This article has been produced by Scalare Partners in partnership with an independent editorial team.
+  </div>
+
+  <!-- Share buttons -->
+  <div class="share-bar">
+    <button class="share-btn">&#x1F517; Copy Link</button>
+    <button class="share-btn">&#x1D54F; Share</button>
+    <button class="share-btn">&#x2709; Email</button>
+    <button class="share-btn">&#x1F4F0; Save</button>
+  </div>
+
+  <div class="content-wrap">
+
+    <!-- Article header -->
+    <header class="article-header">
+      <div class="category-label">Technology / Venture Capital</div>
+      <h1 class="article-headline">The Compliance Company Inside Your Bank Has a Name. Most Investors Have Never Heard It.</h1>
+      <p class="article-subheadline">FrankieOne has built the infrastructure layer for global financial crime prevention. Its investors include some of Australia's sharpest venture minds. Its customers include Gemini. And it is not yet public.</p>
+      <div class="byline-row">
+        <div class="byline">By <strong>Catherine Whitmore</strong> &nbsp;|&nbsp; Special to Capital Markets Review</div>
+        <div class="byline-meta">September 16, 2026 &nbsp;·&nbsp; 4 min read</div>
+      </div>
+    </header>
+
+    <!-- Hero image -->
+    <div class="hero-image-wrap">
+      <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&fit=crop" alt="Financial data compliance technology" loading="eager" />
+    </div>
+    <p class="image-caption">Financial crime compliance has become one of the fastest-growing segments in enterprise software. | Photo: Unsplash</p>
+
+    <!-- Article body -->
+    <div class="article-body">
+
+      <p>It begins with a spreadsheet. Every morning, somewhere in the compliance division of a mid-tier bank, an analyst opens a document flagging potentially suspicious transactions from the night before. The list is long. The data is incomplete. Matching identities across jurisdictions — cross-referencing government databases, sanctions lists, corporate registries, and adverse media feeds — is the kind of manual, error-prone work that keeps compliance officers awake. Regulators notice when it fails.</p>
+
+      <p>The problem is not unique. Across global banking, payments, and digital asset platforms, the cost of financial crime compliance has become one of the fastest-growing line items in the enterprise. <strong>Global spending on anti-money laundering and know-your-customer technology is projected to grow from $6 billion today to $36.8 billion by 2030</strong>, according to industry estimates. The demand for better infrastructure is structural, not cyclical.</p>
+
+      <p>One company has positioned itself at the centre of this transformation. FrankieOne, a Sydney-based technology firm founded in 2019, has built what many in the industry now call the "single API" for identity verification and financial crime prevention. Rather than forcing financial institutions to stitch together dozens of separate data vendors, FrankieOne aggregates more than 350 data sources — identity documents, biometric checks, sanctions databases, transaction monitoring — into one unified platform. The compliance officer's spreadsheet becomes, in theory, unnecessary.</p>
+
+      <p>"The switching cost, once a bank is integrated, is almost prohibitive," says one venture investor familiar with the company's architecture. "Every new data source they add makes the moat deeper. You're not just selling software — you're becoming part of the institution's regulatory nervous system."</p>
+
+      <div class="pull-quote">
+        <blockquote>"Once integrated, the switching cost is almost prohibitive. Every new data source they add makes the moat deeper."</blockquote>
+        <cite>— Venture investor familiar with FrankieOne's architecture</cite>
+      </div>
+
+      <p>The company's investor base reflects the confidence of those who have seen this pattern before. <strong>Airtree Ventures</strong>, one of Australia's most respected early-stage funds, participated in FrankieOne's Series A. So did <strong>Greycroft</strong>, the New York-based firm with early bets on Venmo, Braintree, and Acorns. <strong>Westpac's Reinventure</strong> fund brought institutional banking credibility. And perhaps most significantly, <strong>Binance Labs</strong> and <strong>Kraken</strong> — two of the largest crypto exchange groups globally — invested, signalling that digital asset platforms recognise FrankieOne as essential compliance infrastructure for their own regulated operations.</p>
+
+      <p>The Gemini client win, announced in December 2025, crystallised this thesis. Gemini — the regulated US cryptocurrency exchange founded by the Winklevoss twins and one of the most scrutinised digital asset firms in the world — chose FrankieOne to manage its global identity verification and transaction monitoring stack. For a compliance-first exchange operating under the eye of New York's Department of Financial Services, this was not a low-stakes vendor decision.</p>
+
+      <p>Analysts who cover the sector draw immediate comparisons to <strong>Alloy</strong>, the New York-based identity decisioning company that reached a <strong>$1.35 billion valuation</strong> in its 2021 Series C. Alloy serves similar institutional clients in the US market. FrankieOne operates across Asia-Pacific, the UK, and North America — a broader geographic mandate with a more modular technical architecture. The comparison is instructive but not the only one available.</p>
+
+      <hr class="section-divider" />
+
+      <p>The deeper analogy may be Atlassian. In the early 2010s, observers noted that Atlassian's product suite — Jira, Confluence — was boring, essential, and deeply embedded in the engineering workflows of thousands of companies. The switching cost was enormous. The growth was predictable. The valuation multiple, when it came, was substantial. Infrastructure companies that become invisible dependencies rarely trade at modest prices when they eventually reach public markets.</p>
+
+      <p>FrankieOne is not yet public. That, for some investors, is precisely the point.</p>
+
+      <p>In private venture markets, the gap between institutional and retail access has historically been unbridgeable at early stages. The Airtrees and Greycrofts of the world see deal flow that never reaches the ASX. That asymmetry is changing, albeit slowly, through listed venture vehicles that hold equity in pre-IPO companies.</p>
+
+      <p><strong>Scalare Partners Holdings Limited (ASX: SCP)</strong>, currently trading at approximately <strong>A$6.60 per share</strong>, holds an equity position in FrankieOne as part of a diversified portfolio of more than 23 early-stage technology companies. For retail investors seeking exposure to the compliance-technology wave without the capital requirements of institutional venture funds, SCP represents one of the few structured access points available on a regulated exchange.</p>
+
+      <p>The regulatory environment reinforces the opportunity. Anti-money laundering legislation is tightening across every major jurisdiction. The European Union's Sixth Anti-Money Laundering Directive, the UK's Economic Crime Act, and increasingly aggressive enforcement postures from AUSTRAC and FinCEN in the United States are creating mandatory demand for the kind of infrastructure FrankieOne provides. Compliance is no longer optional — which means FrankieOne's customers cannot reduce spend without regulatory consequence.</p>
+
+      <p>In venture capital, timing is everything. FrankieOne may not remain private for long.</p>
+
+    </div>
+
+    <hr class="section-divider" />
+
+    <!-- Access box -->
+    <div class="access-box">
+      <h3>How to Access This Opportunity</h3>
+      <p>FrankieOne is not separately listed on any exchange.</p>
+      <p><strong>Scalare Partners Holdings Limited (ASX: SCP)</strong> holds equity in FrankieOne as part of a diversified portfolio of 23+ early-stage technology companies.</p>
+      <p>SCP is listed on the Australian Securities Exchange. <strong>Current indicative price: approximately A$6.60 per share.</strong></p>
+      <p>Investors can purchase SCP through any ASX-registered broker.</p>
+    </div>
+
+    <!-- Related articles -->
+    <div class="related-section">
+      <h3>Related Reports</h3>
+      <ul class="related-list">
+        <li>
+          <a href="mypass-lander.html">Shell Mandated It. Chevron Adopted It. Retail Investors Have One Way In.</a>
+          <div class="related-meta">MyPass Global · September 16, 2026 · 4 min read</div>
+        </li>
+        <li>
+          <a href="masterremit-lander.html">Wise Built a £10 Billion Business From This Exact Idea. An Australian Company Is Running the Same Play.</a>
+          <div class="related-meta">Master Remit · September 16, 2026 · 4 min read</div>
+        </li>
+        <li>
+          <a href="#">Why Listed Venture Vehicles Are Becoming the Retail Investor's Answer to Pre-IPO Access</a>
+          <div class="related-meta">Analysis · September 14, 2026 · 5 min read</div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Disclosure -->
+    <div class="disclosure">
+      <strong>Disclosure &amp; Important Information:</strong> This content has been produced and distributed by Scalare Partners Holdings Limited (ASX: SCP) as an investor awareness communication. It is not financial advice. Past performance of comparable companies does not guarantee future results. Investing in listed equities involves risk, including potential loss of capital. All projections and market size estimates cited are sourced from third-party research and are not guaranteed. Readers should conduct their own due diligence and consult a licensed financial adviser before making investment decisions. Scalare Partners Holdings Limited is a registered Australian company. References to valuations, fundraising, and client relationships are based on publicly available information and are subject to change. This material is intended for general information purposes only.
+    </div>
+
+  </div>
+
+  <!-- Bottom paid notice -->
+  <div class="paid-notice-bottom">
+    <span>SPONSORED / PAID CONTENT</span> Produced by Scalare Partners in association with Capital Markets Review. Not editorial content.
+  </div>
+
+  <script>
+    // Reading progress bar
+    window.addEventListener('scroll', function () {
+      const doc = document.documentElement;
+      const scrollTop = doc.scrollTop || document.body.scrollTop;
+      const scrollHeight = doc.scrollHeight - doc.clientHeight;
+      const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+      document.getElementById('progress-bar').style.width = progress + '%';
+    });
+  </script>
+</body>
+</html>
