@@ -3,408 +3,312 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The $340 Billion AI Disaster Prevention Market Has a New Nasdaq Pure-Play | TheSmallCapSignal.com</title>
+  <title>The $340 Billion AI Disaster Prevention Market Has a New Nasdaq Pure-Play — TheSmallCapSignal.com</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
-    /* ── Reset & Base ───────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      font-size: 17px;
-      line-height: 1.75;
-      color: #1a1a1a;
-      background: #ffffff;
-    }
-
-    /* ── Reading Progress Bar ────────────────────── */
+    /* ── Reading progress bar ── */
     #progress-bar {
       position: fixed;
-      top: 0;
-      left: 0;
-      height: 4px;
+      top: 0; left: 0;
+      height: 3px;
       width: 0%;
       background: #C0392B;
       z-index: 9999;
       transition: width 0.1s linear;
     }
 
-    /* ── Site Header ─────────────────────────────── */
-    .site-header {
-      border-bottom: 2px solid #C0392B;
-      padding: 16px 24px;
-      text-align: center;
-      background: #fff;
+    /* ── Sticky nav ── */
+    nav {
       position: sticky;
       top: 0;
       z-index: 100;
-    }
-
-    .site-header .masthead {
-      font-family: 'Playfair Display', serif;
-      font-size: 22px;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      color: #111;
-      text-decoration: none;
-    }
-
-    .site-header .masthead span {
-      color: #C0392B;
-    }
-
-    /* ── Article Wrapper ─────────────────────────── */
-    .article-wrapper {
-      max-width: 740px;
-      margin: 0 auto;
-      padding: 48px 24px 80px;
-    }
-
-    /* ── Category Tag ────────────────────────────── */
-    .category-tag {
+      background: #fff;
+      border-bottom: 1px solid #e5e5e5;
+      padding: 12px 24px;
       font-family: 'Inter', sans-serif;
       font-size: 11px;
       font-weight: 600;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: #C0392B;
-      margin-bottom: 16px;
-      display: block;
+      color: #555;
+    }
+    nav span { color: #C0392B; }
+
+    /* ── Body ── */
+    body {
+      background: #fff;
+      color: #1a1a1a;
+      font-family: 'Inter', sans-serif;
+      font-size: 17px;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* ── Headline ────────────────────────────────── */
-    .article-headline {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(28px, 5vw, 46px);
-      font-weight: 900;
+    /* ── Article wrapper ── */
+    article {
+      max-width: 740px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    /* ── Headline ── */
+    h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 48px;
+      font-weight: 700;
       line-height: 1.15;
       color: #0d0d0d;
       margin-bottom: 20px;
-      letter-spacing: -0.01em;
     }
 
-    /* ── Subheadline ─────────────────────────────── */
-    .article-subheadline {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(16px, 2.5vw, 20px);
+    /* ── Subheadline ── */
+    .subheadline {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 20px;
       font-style: italic;
-      font-weight: 400;
-      color: #666;
+      color: #777;
       line-height: 1.5;
-      margin-bottom: 28px;
-      border-left: 3px solid #e0e0e0;
-      padding-left: 16px;
+      margin-bottom: 20px;
     }
 
-    /* ── Byline ──────────────────────────────────── */
-    .article-byline {
-      font-size: 12px;
-      font-weight: 500;
-      color: #888;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      padding-bottom: 24px;
-      border-bottom: 1px solid #e5e5e5;
-      margin-bottom: 36px;
-    }
-
-    .article-byline strong {
-      color: #444;
-    }
-
-    /* ── Divider ─────────────────────────────────── */
-    .article-divider {
-      border: none;
-      border-top: 1px solid #e5e5e5;
-      margin: 40px 0;
-    }
-
-    /* ── Body Text ───────────────────────────────── */
-    .article-body p {
-      margin-bottom: 22px;
-      color: #1a1a1a;
-      font-weight: 300;
-    }
-
-    .article-body p:first-of-type {
-      font-size: 18px;
-      font-weight: 400;
-    }
-
-    .article-body strong {
-      font-weight: 600;
-      color: #0d0d0d;
-    }
-
-    /* ── Section Headers ─────────────────────────── */
-    .article-body h2 {
+    /* ── Byline ── */
+    .byline {
       font-family: 'Inter', sans-serif;
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      font-variant: small-caps;
-      color: #C0392B;
-      margin: 44px 0 18px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid #f0ddd9;
+      font-size: 13px;
+      color: #888;
+      margin-bottom: 28px;
     }
 
-    /* ── Pull Quotes ─────────────────────────────── */
-    .pull-quote {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(18px, 3vw, 24px);
-      font-style: italic;
-      font-weight: 400;
-      line-height: 1.45;
+    /* ── Divider ── */
+    .divider {
+      border: none;
+      border-top: 1px solid #C0392B;
+      margin: 28px 0;
+    }
+
+    /* ── Body text ── */
+    p {
+      margin-bottom: 22px;
+      font-size: 17px;
+      line-height: 1.75;
       color: #222;
-      border-left: 4px solid #C0392B;
-      padding: 12px 0 12px 24px;
-      margin: 36px 0;
     }
 
-    /* ── RZAI Callout Box ────────────────────────── */
+    /* ── Section headers ── */
+    h2 {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      color: #C0392B;
+      margin: 48px 0 20px;
+    }
+
+    /* ── Pull quotes ── */
+    .pull-quote {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 22px;
+      font-style: italic;
+      color: #1a1a1a;
+      border-left: 3px solid #C0392B;
+      margin: 36px 0 36px 24px;
+      padding: 8px 0 8px 24px;
+      line-height: 1.55;
+    }
+
+    /* ── Bold numbers & tickers ── */
+    strong { font-weight: 600; }
+
+    /* ── RZAI Callout box ── */
     .rzai-callout {
       background: #C9A84C;
-      color: #0d1e3c;
-      border-radius: 4px;
-      padding: 22px 28px;
+      color: #0A1628;
+      border-radius: 8px;
+      padding: 20px 24px;
+      margin: 36px 0;
       text-align: center;
-      margin: 40px 0;
-    }
-
-    .rzai-callout .ticker-badge {
-      display: inline-block;
       font-family: 'Inter', sans-serif;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      background: #0d1e3c;
-      color: #C9A84C;
-      padding: 4px 12px;
-      border-radius: 2px;
-      margin-bottom: 12px;
-    }
-
-    .rzai-callout p {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(15px, 2.5vw, 17px);
+      font-size: 15px;
       font-weight: 600;
-      line-height: 1.5;
-      color: #0d1e3c;
-      margin: 0;
+      line-height: 1.6;
     }
 
-    /* ── Disclosure ──────────────────────────────── */
+    /* ── Disclosure ── */
     .disclosure {
-      font-size: 11px;
+      font-size: 12px;
+      color: #999;
       line-height: 1.6;
-      color: #aaa;
       font-style: italic;
       border-top: 1px solid #e5e5e5;
-      padding-top: 28px;
+      padding-top: 24px;
       margin-top: 48px;
     }
 
-    /* ── Footer ──────────────────────────────────── */
-    .site-footer {
-      background: #0d0d0d;
-      color: #888;
-      text-align: center;
-      font-size: 12px;
-      padding: 28px 16px;
-      margin-top: 60px;
-      font-family: 'Inter', sans-serif;
-    }
-
-    .site-footer a { color: #C0392B; text-decoration: none; }
-
-    /* ── Mobile ──────────────────────────────────── */
+    /* ── Mobile ── */
     @media (max-width: 600px) {
-      .article-wrapper { padding: 32px 18px 60px; }
-      .rzai-callout { padding: 18px 16px; }
-      .pull-quote { padding-left: 16px; }
+      h1 { font-size: 32px; }
+      article { padding: 32px 18px 60px; }
+      .pull-quote { font-size: 19px; margin-left: 0; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Reading Progress Bar -->
-  <div id="progress-bar"></div>
+<div id="progress-bar"></div>
 
-  <!-- Site Header -->
-  <header class="site-header">
-    <a class="masthead" href="#">The<span>SmallCap</span>Signal<span>.</span>com</a>
-  </header>
+<nav>TheSmallCapSignal.com &nbsp;|&nbsp; <span>Investor Awareness</span></nav>
 
-  <!-- Article -->
-  <main class="article-wrapper">
+<article>
 
-    <span class="category-tag">Investor Awareness · Emerging Technology</span>
+  <h1>The $340 Billion AI Disaster Prevention Market Has a New Nasdaq Pure-Play — And Early Investors Are Already Moving</h1>
 
-    <h1 class="article-headline">
-      The $340 Billion AI Disaster Prevention Market Has a New Nasdaq Pure-Play — And Most Investors Haven't Found It Yet
-    </h1>
+  <p class="subheadline">A decade of field-tested AI deployed at Korean military bases and power plants. A Nasdaq listing at $8.00 per share. And a market most retail investors haven't discovered yet.</p>
 
-    <p class="article-subheadline">
-      A decade of field-tested AI fire detection technology, deployed at South Korean military bases, government facilities, and power plants, just arrived on the Nasdaq Capital Market. The market hasn't priced it yet.
-    </p>
+  <div class="byline">By Marcus Alderton &nbsp;|&nbsp; Special to TheSmallCapSignal.com &nbsp;&nbsp;&bull;&nbsp;&nbsp; September 28, 2026</div>
 
-    <div class="article-byline">
-      <strong>By Marcus Alderton</strong> &nbsp;|&nbsp; Special to TheSmallCapSignal.com &nbsp;|&nbsp; September 28, 2026
-    </div>
+  <hr class="divider" />
 
-    <div class="article-body">
+  <!-- ── OPENING HOOK — do not alter ── -->
+  <p>A South Korean AI company just listed on Nasdaq. It detects fires and disasters before they happen — using artificial intelligence deployed at military bases, power plants, and government facilities across one of the most technologically advanced nations on earth. The total addressable market for what it does exceeds <strong>$340 billion</strong> by 2030. The stock trades under the symbol <strong>RZAI</strong>. And most retail investors have never heard of it.</p>
 
-      <!-- ── Opening ── -->
-      <p>Every year, the global fire detection industry generates more than <strong>500 million false alarms</strong>. Emergency crews scramble. Factories go dark. Buildings empty. The economic toll runs into the tens of billions of dollars annually — lost productivity, diverted first responders, ruined equipment.</p>
+  <p>That is exactly the kind of information gap that has historically created the most asymmetric returns in small-cap markets.</p>
 
-      <p>And yet the real fires — the ones that actually kill people and destroy infrastructure — are still being detected, on average, <strong>four to seven minutes too late</strong>.</p>
+  <p>RozeAI Inc. (Nasdaq: <strong>RZAI</strong>) is the only pure-play AI fire detection and disaster prevention company listed on a major US exchange. If it captures just 1% of its addressable market, that is <strong>$3.4 billion</strong> in revenue potential. For context, the company listed at <strong>$8.00 per share</strong>. The window for early positioning is open right now.</p>
 
-      <!-- CALLOUT BOX 1 — after para 2 -->
-      <div class="rzai-callout">
-        <div class="ticker-badge">Nasdaq: RZAI</div>
-        <p>RozeAI Inc. (Nasdaq: RZAI) is the only pure-play AI fire detection and disaster prevention company listed on a US exchange. Shares available through any US broker.</p>
-      </div>
+  <!-- ── CALLOUT BOX 1 ── -->
+  <div class="rzai-callout">
+    RozeAI Inc. trades on the Nasdaq Capital Market under the symbol <strong>RZAI</strong>.<br />
+    The only pure-play AI fire detection and disaster prevention company on a major US exchange.<br />
+    Available through any US brokerage or trading platform.
+  </div>
 
-      <p>That gap is not a footnote. It is the entire problem.</p>
+  <p>For investors who want the full picture — the technology, the market, and why this matters — read on.</p>
 
-      <p>Traditional smoke detectors work on simple chemistry: a particle of smoke reaches a sensor, a threshold is crossed, an alarm sounds. They have no context, no intelligence, no ability to distinguish between a burning building and burned toast. The false alarm rate in commercial and industrial settings hovers above <strong>40%</strong>. And when a real fire starts — especially in the early, oxygen-starved smoldering phase — these systems are frequently silent until it is far too late.</p>
+  <hr class="divider" />
 
-      <p>The global fire protection market alone is a <strong>$93.8 billion</strong> industry, on track to hit <strong>$134 billion by 2030</strong>. But fire detection is only the beginning of what Roze AI is building. Add AI-powered disaster prevention, critical infrastructure monitoring, industrial safety, power grid protection, wildfire forecasting, and smart city safety systems — and the total addressable market expands to over <strong>$340 billion by 2030</strong>. It is one of the largest, most structurally underserved technology opportunities on earth, and it is almost entirely built on technology that hasn't fundamentally changed in fifty years.</p>
+  <!-- ── PROBLEM SECTION ── -->
+  <p>Every year, the global fire detection industry generates more than <strong>500 million false alarms</strong>. Emergency crews scramble. Factories go dark. Buildings empty. The economic toll runs into the tens of billions of dollars annually — lost productivity, diverted first responders, ruined equipment.</p>
 
-      <div class="pull-quote">
-        Something is about to change.
-      </div>
+  <p>And yet the real fires — the ones that actually kill people and destroy infrastructure — are still being detected, on average, <strong>four to seven minutes too late</strong>.</p>
 
-      <hr class="article-divider" />
+  <p>That gap is not a footnote. It is the entire problem.</p>
 
-      <!-- ── Section 1 ── -->
-      <h2>A Decade of Work, Quietly Deployed</h2>
+  <p>Traditional smoke detectors work on simple chemistry: a particle of smoke reaches a sensor, a threshold is crossed, an alarm sounds. They have no context, no intelligence, no ability to distinguish between a burning building and burned toast. The false alarm rate in commercial and industrial settings hovers above <strong>40%</strong>. And when a real fire starts — especially in the early, oxygen-starved smoldering phase — these systems are frequently silent until it is far too late.</p>
 
-      <p>In 2015, a South Korean engineer named <strong>Young Jin Cho</strong> founded a company called ROZETATECH in Seoul. Cho is not a startup founder in the traditional sense — he is a <strong>30-year veteran</strong> of IT and AI development who had already built and led technology businesses across the US and Korea. When he turned his attention to fire detection, he was not interested in building a better smoke alarm. He was building something categorically different.</p>
+  <p>The global fire protection market alone is a <strong>$93.8 billion</strong> industry, on track to hit <strong>$134 billion</strong> by 2030. But fire detection is only the beginning of what Roze AI is building. Add AI-powered disaster prevention, critical infrastructure monitoring, industrial safety, power grid protection, wildfire forecasting, and smart city safety systems — and the total addressable market expands to over <strong>$340 billion</strong> by 2030. It is one of the largest, most structurally underserved technology opportunities on earth, and it is almost entirely built on technology that hasn't fundamentally changed in fifty years.</p>
 
-      <p>The company he created — now called <strong>Roze AI, Inc.</strong> — spent nearly a decade developing what it calls the <strong>DAP: the Disaster AI Platform</strong>. This is not a sensor. It is a wireless network of monitoring devices layered on top of a digital twin simulation engine — a real-time virtual representation of a physical building or facility, continuously fed by AI-analyzed sensor data. The system doesn't wait for smoke to reach a detector. It models the environment, identifies anomalies in heat, airflow, gas concentrations, electrical patterns, and structural conditions, and flags developing disasters before they become uncontrollable.</p>
+  <div class="pull-quote">"Something is about to change. And Nasdaq: <strong>RZAI</strong> is how investors get in front of it."</div>
 
-      <p>Fire is just the first application. The same platform monitors industrial gas leaks, power grid anomalies, flood risk conditions, earthquake structural responses, and chemical hazard events. <strong>FIRE 4 CAST™</strong> — Roze AI's predictive forecasting system — applies machine learning to environmental and atmospheric data to predict where fires are likely to occur before they start. <strong>RozeAI® EnerGen™</strong> extends this intelligence to power generation monitoring, protecting the infrastructure that modern society depends on. The platform is already operating across South Korean military bases, government facilities, power plants, and designated industrial production sites. It is not a demo. It is infrastructure.</p>
+  <!-- ── SECTION: A DECADE OF WORK ── -->
+  <h2>A Decade of Work, Quietly Deployed</h2>
 
-      <p>The difference in detection time is not incremental. It is measured in minutes. Sometimes more.</p>
+  <p>In 2015, a South Korean engineer named Young Jin Cho founded a company called ROZETATECH in Seoul. Cho is not a startup founder in the traditional sense — he is a 30-year veteran of IT and AI development who had already built and led technology businesses across the US and Korea. When he turned his attention to fire detection, he was not interested in building a better smoke alarm. He was building something categorically different.</p>
 
-      <p>Roze AI's platform has been installed and operated at major government facilities, military bases, designated industrial production sites, and power plants across <strong>South Korea</strong>. It has not been tested in a lab. It has been running, in production, at some of the most critical infrastructure in the country, for years. The Korean government evaluated it and certified DAP as an <strong>innovative new technology</strong> — a designation that comes with both validation and, more practically, procurement advantages.</p>
+  <p>The company he created — now called Roze AI, Inc. — spent nearly a decade developing what it calls the DAP: the Disaster AI Platform. This is not a sensor. It is a wireless network of monitoring devices layered on top of a digital twin simulation engine — a real-time virtual representation of a physical building or facility, continuously fed by AI-analyzed sensor data. The system doesn't wait for smoke to reach a detector. It models the environment, identifies anomalies in heat, airflow, gas concentrations, electrical patterns, and structural conditions, and flags developing disasters before they become uncontrollable.</p>
 
-      <p>The product line has expanded. <strong>So.S HOME™</strong> is an all-in-one consumer safety device powered by sound-field sensing. <strong>FIRE 4 CAST™</strong> is the company's AI fire forecasting system — predictive, not reactive. <strong>RozeAI® EnerGen™</strong> is an AI system-on-chip (SoC) developed for disaster prevention and power generation monitoring. <strong>RozeAI® Adviser™</strong> is a portable AI safety device for field deployment.</p>
+  <p>Fire is just the first application. The same platform monitors industrial gas leaks, power grid anomalies, flood risk conditions, earthquake structural responses, and chemical hazard events. FIRE 4 CAST™ — Roze AI's predictive forecasting system — applies machine learning to environmental and atmospheric data to predict where fires are likely to occur before they start. RozeAI® EnerGen™ extends this intelligence to power generation monitoring, protecting the infrastructure that modern society depends on. The platform is already operating across South Korean military bases, government facilities, power plants, and designated industrial production sites. It is not a demo. It is infrastructure.</p>
 
-      <div class="pull-quote">
-        This is not a single-product story. It is a platform.
-      </div>
+  <p>The difference in detection time is not incremental. It is measured in minutes. Sometimes more.</p>
 
-      <hr class="article-divider" />
+  <p>Roze AI's platform has been installed and operated at major government facilities, military bases, designated industrial production sites, and power plants across South Korea. It has not been tested in a lab. It has been running, in production, at some of the most critical infrastructure in the country, for years. The Korean government evaluated it and certified DAP as an innovative new technology — a designation that comes with both validation and, more practically, procurement advantages.</p>
 
-      <!-- ── Section 2 ── -->
-      <h2>The $340 Billion Market Nobody Is Talking About</h2>
+  <p>The product line has expanded. So.S HOME™ is an all-in-one consumer safety device powered by sound-field sensing. FIRE 4 CAST™ is the company's AI fire forecasting system — predictive, not reactive. RozeAI® EnerGen™ is an AI system-on-chip (SoC) developed for disaster prevention and power generation monitoring. RozeAI® Adviser™ is a portable AI safety device for field deployment.</p>
 
-      <p>The timing is not coincidental.</p>
+  <p>This is not a single-product story. It is a platform.</p>
 
-      <p>Start with the baseline. Grand View Research projects the global fire alarm and detection market alone will reach <strong>$56 billion by 2030</strong>, growing at a <strong>7.2% compound annual rate</strong>. The broader global fire protection market — suppression, detection, services, and equipment — will reach <strong>$134 billion by 2030</strong>.</p>
+  <!-- ── SECTION: $340B MARKET ── -->
+  <h2>The $340 Billion Market Nobody Is Talking About</h2>
 
-      <p>Then layer in the adjacent categories Roze AI is already moving into:</p>
+  <p>The timing is not coincidental.</p>
 
-      <p>The global AI public security and safety market: <strong>$71 billion by 2030</strong>, growing at 29.3% annually. Critical infrastructure protection: <strong>$153 billion by 2030</strong>. Industrial safety monitoring: <strong>$9.8 billion by 2028</strong>. AI wildfire detection and forecasting: <strong>$6.9 billion by 2034</strong>. Smart city safety systems: <strong>$38 billion by 2030</strong>. Power grid AI monitoring: <strong>$20 billion by 2028</strong>.</p>
+  <p>Start with the baseline. Grand View Research projects the global fire alarm and detection market alone will reach <strong>$56 billion</strong> by 2030, growing at a 7.2% compound annual rate. The broader global fire protection market — suppression, detection, services, and equipment — will reach <strong>$134 billion</strong> by 2030.</p>
 
-      <p>Add it up. The combined addressable market for what Roze AI's platform actually does — AI-powered fire detection, disaster prevention, critical infrastructure monitoring, industrial safety, wildfire forecasting, and power grid protection — <strong>exceeds $340 billion by 2030</strong>.</p>
+  <p>Then layer in the adjacent categories Roze AI is already moving into:</p>
 
-      <!-- CALLOUT BOX 2 — after market section -->
-      <div class="rzai-callout">
-        <div class="ticker-badge">Nasdaq: RZAI</div>
-        <p>RozeAI Inc. (Nasdaq: RZAI) is the only pure-play AI fire detection and disaster prevention company listed on a US exchange. Shares available through any US broker.</p>
-      </div>
+  <p>The global AI public security and safety market: <strong>$71 billion</strong> by 2030, growing at 29.3% annually. Critical infrastructure protection: <strong>$153 billion</strong> by 2030. Industrial safety monitoring: <strong>$9.8 billion</strong> by 2028. AI wildfire detection and forecasting: <strong>$6.9 billion</strong> by 2034. Smart city safety systems: <strong>$38 billion</strong> by 2030. Power grid AI monitoring: <strong>$20 billion</strong> by 2028.</p>
 
-      <p>Every datacenter, every manufacturing plant, every power grid, every military base, every government building in the world is a potential customer. Insurance companies are beginning to mandate AI-based monitoring for commercial properties in high-risk categories. Building codes in South Korea and the European Union now favor predictive safety systems over reactive ones. In the United States, NFPA and OSHA frameworks are under active revision.</p>
+  <p>Add it up. The combined addressable market for what Roze AI's platform actually does — AI-powered fire detection, disaster prevention, critical infrastructure monitoring, industrial safety, wildfire forecasting, and power grid protection — exceeds <strong>$340 billion</strong> by 2030.</p>
 
-      <p>The regulatory tailwind is real. The demand signal is real. The incumbent players — <strong>Honeywell</strong>, <strong>Siemens</strong>, <strong>Johnson Controls</strong> — are not built to move fast on AI-native platforms.</p>
+  <p>Every datacenter, every manufacturing plant, every power grid, every military base, every government building in the world is a potential customer. Insurance companies are beginning to mandate AI-based monitoring for commercial properties in high-risk categories. Building codes in South Korea and the European Union now favor predictive safety systems over reactive ones. In the United States, NFPA and OSHA frameworks are under active revision.</p>
 
-      <div class="pull-quote">
-        This is exactly the kind of structural gap that creates outsized returns for early investors in small-cap technology companies.
-      </div>
+  <p>The regulatory tailwind is real. The demand signal is real. The incumbent players — Honeywell, Siemens, Johnson Controls — are not built to move fast on AI-native platforms.</p>
 
-      <hr class="article-divider" />
+  <div class="pull-quote">"This is exactly the kind of structural gap that creates outsized returns for early investors in small-cap technology companies."</div>
 
-      <!-- ── Section 3 ── -->
-      <h2>Pure-Play. Nasdaq-Listed. Early Days.</h2>
+  <!-- ── CALLOUT BOX 2 ── -->
+  <div class="rzai-callout">
+    RozeAI Inc. trades on the Nasdaq Capital Market under the symbol <strong>RZAI</strong>.<br />
+    The only pure-play AI fire detection and disaster prevention company on a major US exchange.<br />
+    Available through any US brokerage or trading platform.
+  </div>
 
-      <p><strong>Roze AI, Inc.</strong> trades on the Nasdaq Capital Market under the ticker <strong>RZAI</strong>, having listed in 2026 as one of the only pure-play AI fire detection and disaster prevention companies in the US public markets.</p>
+  <!-- ── SECTION: PURE PLAY ── -->
+  <h2>Pure-Play. Nasdaq-Listed. Early Days.</h2>
 
-      <p>That distinction matters. When investors want exposure to AI safety — to the intersection of computer vision, digital twin simulation, and critical infrastructure protection — there is no ETF for that. There is no basket of ten comparable companies. Roze AI, at this stage, is essentially the category.</p>
+  <p>Roze AI, Inc. trades on the Nasdaq Capital Market under the ticker <strong>RZAI</strong>, having listed in 2026 as one of the only pure-play AI fire detection and disaster prevention companies in the US public markets.</p>
 
-      <p>The large incumbents — <strong>Honeywell</strong>, <strong>Siemens</strong>, <strong>Johnson Controls</strong> — trade at enterprise values in the tens or hundreds of billions. Their fire detection divisions are small lines in very large income statements. No institutional fund is going to move the needle on Honeywell to get AI fire detection exposure.</p>
+  <p>That distinction matters. When investors want exposure to AI safety — to the intersection of computer vision, digital twin simulation, and critical infrastructure protection — there is no ETF for that. There is no basket of ten comparable companies. Roze AI, at this stage, is essentially the category.</p>
 
-      <p><strong>RZAI</strong> is different. It is a focused, founder-led, AI-native company, built entirely around this problem, with a decade of field-tested deployment in a country that takes both technology and disaster prevention seriously. South Korea is not peripheral to AI development — it is a global leader, home to Samsung, SK Hynix, and a deep ecosystem of AI semiconductor and software talent. The pedigree matters.</p>
+  <p>The large incumbents — Honeywell, Siemens, Johnson Controls — trade at enterprise values in the tens or hundreds of billions. Their fire detection divisions are small lines in very large income statements. No institutional fund is going to move the needle on Honeywell to get AI fire detection exposure.</p>
 
-      <p>The listing price was <strong>$8.00 per share</strong>.</p>
+  <p><strong>RZAI</strong> is different. It is a focused, founder-led, AI-native company, built entirely around this problem, with a decade of field-tested deployment in a country that takes both technology and disaster prevention seriously. South Korea is not peripheral to AI development — it is a global leader, home to Samsung, SK Hynix, and a deep ecosystem of AI semiconductor and software talent. The pedigree matters.</p>
 
-      <p>If Roze AI captures even <strong>1% of its $340 billion total addressable market</strong> by 2030, that is <strong>$3.4 billion</strong> in addressable annual revenue. Even at the narrower fire detection market alone — $56 billion — a 1% share is <strong>$560 million in ARR</strong>. Comparable AI-platform companies in adjacent infrastructure verticals trade at revenue multiples of <strong>5x to 12x</strong>. The math at those multiples speaks for itself.</p>
+  <p>The listing price was <strong>$8.00 per share</strong>.</p>
 
-      <hr class="article-divider" />
+  <p>If Roze AI captures even 1% of its <strong>$340 billion</strong> total addressable market by 2030, that is <strong>$3.4 billion</strong> in addressable annual revenue. Even at the narrower fire detection market alone — <strong>$56 billion</strong> — a 1% share is <strong>$560 million</strong> in ARR. Comparable AI-platform companies in adjacent infrastructure verticals trade at revenue multiples of 5x to 12x. The math at those multiples speaks for itself.</p>
 
-      <!-- ── Section 4 ── -->
-      <h2>Why September 2026 Is the Entry Point</h2>
+  <!-- ── SECTION: WHY NOW ── -->
+  <h2>Why September 2026 Is the Entry Point</h2>
 
-      <p>Fresh Nasdaq listings in emerging technology categories have a pattern that experienced small-cap investors know well. The first few weeks and months after listing are often characterized by price discovery — institutional research is not yet published, retail awareness is limited, and the stock trades on limited information. That gap between fundamental value and market awareness is precisely where early investors have historically made asymmetric returns.</p>
+  <p>Fresh Nasdaq listings in emerging technology categories have a pattern that experienced small-cap investors know well. The first few weeks and months after listing are often characterized by price discovery — institutional research is not yet published, retail awareness is limited, and the stock trades on limited information. That gap between fundamental value and market awareness is precisely where early investors have historically made asymmetric returns.</p>
 
-      <p><strong>Roze AI is at that moment right now.</strong></p>
+  <p>Roze AI is at that moment right now.</p>
 
-      <p>The technology is not theoretical. The market is not hypothetical. The regulatory environment is moving in the right direction. The only variable is how long it takes the rest of the market to notice what is already deployed and operating at South Korean government facilities, military installations, and power plants.</p>
+  <p>The technology is not theoretical. The market is not hypothetical. The regulatory environment is moving in the right direction. The only variable is how long it takes the rest of the market to notice what is already deployed and operating at South Korean government facilities, military installations, and power plants.</p>
 
-      <div class="pull-quote">
-        Early investors in category-defining small caps don't wait for consensus. Consensus is expensive.
-      </div>
+  <p>Early investors in category-defining small caps don't wait for consensus. Consensus is expensive.</p>
 
-      <hr class="article-divider" />
+  <!-- ── CALLOUT BOX 3 ── -->
+  <div class="rzai-callout">
+    RozeAI Inc. trades on the Nasdaq Capital Market under the symbol <strong>RZAI</strong>.<br />
+    The only pure-play AI fire detection and disaster prevention company on a major US exchange.<br />
+    Available through any US brokerage or trading platform.
+  </div>
 
-      <!-- ── Section 5 ── -->
-      <h2>The Bottom Line</h2>
+  <!-- ── SECTION: BOTTOM LINE ── -->
+  <h2>The Bottom Line</h2>
 
-      <p>The fire detection industry is a <strong>$93 billion market</strong> running on fifty-year-old technology. AI is rewriting every category it touches. A Korean company with a decade of field-tested AI fire detection at critical government infrastructure just listed on Nasdaq.</p>
+  <p>The fire detection industry is a <strong>$93 billion</strong> market running on fifty-year-old technology. AI is rewriting every category it touches. A Korean company with a decade of field-tested AI fire detection at critical government infrastructure just listed on Nasdaq.</p>
 
-      <p>Most investors haven't heard of it yet.</p>
+  <p>Most investors haven't heard of it yet.</p>
 
-      <p><strong>RozeAI Inc.</strong> trades on the Nasdaq Capital Market under the symbol <strong>RZAI</strong>. Shares can be purchased through any US brokerage or trading platform.</p>
+  <p>RozeAI Inc. trades on the Nasdaq Capital Market under the symbol <strong>RZAI</strong>. Shares can be purchased through any US brokerage or trading platform.</p>
 
-      <!-- CALLOUT BOX 3 — at the end -->
-      <div class="rzai-callout">
-        <div class="ticker-badge">Nasdaq: RZAI</div>
-        <p>RozeAI Inc. (Nasdaq: RZAI) is the only pure-play AI fire detection and disaster prevention company listed on a US exchange. Shares available through any US broker.</p>
-      </div>
+  <div class="disclosure">
+    <strong>DISCLOSURE:</strong> This is paid investor awareness content produced on behalf of a third party. It is not financial advice. The author may hold positions in securities discussed. Investing in small-cap and micro-cap stocks involves significant risk of loss, including the possible loss of the entire investment. Past performance is not indicative of future results. Always conduct your own due diligence or consult a licensed financial advisor before making investment decisions. This content is intended for informational purposes only and does not constitute an offer or solicitation to buy or sell any security.
+  </div>
 
-      <!-- ── Disclosure ── -->
-      <div class="disclosure">
-        <strong>DISCLOSURE:</strong> This is paid investor awareness content produced on behalf of a third party. It is not financial advice. The author may hold positions in securities discussed. Investing in small-cap and micro-cap stocks involves significant risk of loss, including the possible loss of the entire investment. Past performance is not indicative of future results. Always conduct your own due diligence or consult a licensed financial advisor before making investment decisions. This content is intended for informational purposes only and does not constitute an offer or solicitation to buy or sell any security.
-      </div>
+</article>
 
-    </div><!-- /.article-body -->
-  </main>
-
-  <!-- Site Footer -->
-  <footer class="site-footer">
-    <p>© 2026 TheSmallCapSignal.com &nbsp;·&nbsp; <a href="#">Terms</a> &nbsp;·&nbsp; <a href="#">Privacy</a> &nbsp;·&nbsp; <a href="#">Disclosures</a></p>
-    <p style="margin-top:8px; font-size:11px; color:#555;">Paid investor awareness content. Not financial advice.</p>
-  </footer>
-
-  <!-- Progress Bar Script -->
-  <script>
-    const bar = document.getElementById('progress-bar');
-    window.addEventListener('scroll', () => {
-      const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-      bar.style.width = pct + '%';
-    });
-  </script>
+<script>
+  // Reading progress bar
+  (function () {
+    var bar = document.getElementById('progress-bar');
+    function update() {
+      var scrollTop = window.scrollY || document.documentElement.scrollTop;
+      var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      bar.style.width = Math.min(pct, 100) + '%';
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+  })();
+</script>
 
 </body>
 </html>
