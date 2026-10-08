@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Cykel AI PLC — Autonomous AI Agents for the Modern Enterprise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy:   #0A1628;
+  --blue:   #1E6FD9;
+  --teal:   #00C9A7;
+  --white:  #FFFFFF;
+  --gray:   #F4F7FB;
+  --gold:   #C9A84C;
+  --violet: #7C4DFF;
+  --glass-bg: rgba(255,255,255,0.06);
+  --glass-border: rgba(255,255,255,0.12);
+}
+
+html {
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  font-family: 'Inter', sans-serif;
+  background: var(--navy);
+  color: var(--white);
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ============================================================
+   PROGRESS BAR
+   ============================================================ */
+#progress-bar {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--blue), var(--teal));
+  z-index: 1000;
+  transition: width 0.2s ease;
+}
+
+/* ============================================================
+   NAV DOTS
+   ============================================================ */
+#nav-dots {
+  position: fixed;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.nav-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  padding: 0;
+  /* min touch target */
+  position: relative;
+}
+
+.nav-dot::after {
+  content: '';
+  position: absolute;
+  inset: -8px;
+}
+
+.nav-dot.active {
+  background: var(--teal);
+  transform: scale(1.4);
+}
+
+.nav-dot:hover { background: var(--blue); transform: scale(1.3); }
+
+/* ============================================================
+   SLIDES
+   ============================================================ */
+.slide {
+  scroll-snap-align: start;
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.slide-bg {
+  background-size: cover;
+  background-position: center;
+  background-attachment: local;
+}
+
+.slide-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10,22,40,0.82);
+  z-index: 0;
+}
+
+.slide-content {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.slide-footer {
+  position: relative;
+  z-index: 2;
+  background: rgba(0,0,0,0.5);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding: 10px 40px;
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.05em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Inter', sans-serif;
+}
+
+/* ============================================================
+   GLASS CARD
+   ============================================================ */
+.glass {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 16px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+@media (hover: hover) {
+  .glass:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
+}
+
+/* ============================================================
+   TYPOGRAPHY
+   ============================================================ */
+.syne { font-family: 'Syne', sans-serif; }
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--blue), var(--teal));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.tag-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: var(--teal);
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   SLIDE HEADERS (shared)
+   ============================================================ */
+.slide-header { margin-bottom: 6px; }
+
+.slide-eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: var(--teal);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.slide-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(24px, 4vw, 42px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+.slide-subtitle {
+  font-size: clamp(13px, 1.8vw, 15px);
+  color: rgba(255,255,255,0.55);
+  margin-top: 8px;
+  line-height: 1.5;
+}
+
+/* ============================================================
+   SLIDE 1 — COVER
+   ============================================================ */
+#slide-1 {
+  background-image: url('https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=1920');
+}
+
+.cover-inner {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 60px 32px 20px;
+}
+
+.cover-ticker {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  color: var(--teal);
+  text-transform: uppercase;
+  border: 1px solid rgba(0,201,167,0.4);
+  padding: 8px 22px;
+  border-radius: 30px;
+  margin-bottom: 40px;
+  display: inline-block;
+}
+
+.cover-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(52px, 11vw, 100px);
+  font-weight: 800;
+  color: var(--white);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.cover-plc {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(16px, 3vw, 28px);
+  font-weight: 400;
+  color: rgba(255,255,255,0.7);
+  letter-spacing: 0.5em;
+  margin-top: 8px;
+  text-transform: uppercase;
+}
+
+.cover-divider {
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--blue), transparent);
+  margin: 30px auto;
+}
+
+.cover-tagline {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(16px, 2.5vw, 22px);
+  color: var(--white);
+  font-weight: 700;
+  margin-bottom: 12px;
+  letter-spacing: -0.01em;
+}
+
+.cover-sub {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(13px, 1.8vw, 16px);
+  color: rgba(255,255,255,0.6);
+  font-style: italic;
+  font-weight: 300;
+  max-width: 480px;
+  line-height: 1.5;
+}
+
+.scroll-arrow {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.scroll-arrow span {
+  display: block;
+  width: 10px; height: 10px;
+  border-right: 2px solid var(--teal);
+  border-bottom: 2px solid var(--teal);
+  transform: rotate(45deg);
+  opacity: 0;
+  animation: arrow-fade 2s infinite;
+}
+
+.scroll-arrow span:nth-child(1) { animation-delay: 0s; }
+.scroll-arrow span:nth-child(2) { animation-delay: 0.2s; }
+.scroll-arrow span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes arrow-fade {
+  0%   { opacity: 0; transform: rotate(45deg) translateY(-4px); }
+  50%  { opacity: 1; }
+  100% { opacity: 0; transform: rotate(45deg) translateY(4px); }
+}
+
+/* ============================================================
+   SLIDE 2 — COMPANY AT A GLANCE
+   ============================================================ */
+#slide-2 { background: var(--navy); }
+
+.s2-inner {
+  flex: 1;
+  padding: 56px 60px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.s2-company-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.info-card {
+  padding: 28px;
+  border-radius: 16px;
+}
+
+.info-card-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.info-card-title.blue { color: var(--blue); }
+.info-card-title.teal { color: var(--teal); }
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 9px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  gap: 16px;
+}
+
+.info-row:last-child { border-bottom: none; }
+
+.info-label {
+  font-size: 12px;
+  color: rgba(255,255,255,0.5);
+  font-weight: 500;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.info-value {
+  font-size: 13px;
+  color: var(--white);
+  font-weight: 500;
+  text-align: right;
+}
+
+.stat-boxes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.stat-box {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(0,201,167,0.2);
+  border-radius: 14px;
+  padding: 28px 24px;
+  text-align: center;
+}
+
+.stat-number {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(18px, 2.5vw, 28px);
+  font-weight: 800;
+  color: var(--teal);
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+
+.stat-label {
+  font-size: 13px;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.5;
+}
+
+.stat-cagr {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--blue);
+  background: rgba(30,111,217,0.15);
+  padding: 3px 12px;
+  border-radius: 20px;
+  letter-spacing: 0.05em;
+}
+
+/* ============================================================
+   SLIDE 3 — TWO DIVISIONS
+   ============================================================ */
+#slide-3 {
+  background-image: url('https://images.unsplash.com/photo-1553877522-43269d4ea984?w=1920');
+}
+
+.s3-inner {
+  flex: 1;
+  padding: 50px 60px 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.s3-panels {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  flex: 1;
+  margin-top: 28px;
+}
+
+.division-panel {
+  padding: 28px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.panel-blue {
+  background: rgba(30,111,217,0.12);
+  border: 1px solid rgba(30,111,217,0.35);
+  border-left: 4px solid var(--blue);
+}
+
+.panel-teal {
+  background: rgba(0,201,167,0.08);
+  border: 1px solid rgba(0,201,167,0.3);
+  border-left: 4px solid var(--teal);
+}
+
+.panel-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(16px, 2vw, 20px);
+  font-weight: 800;
+  letter-spacing: 0.05em;
+}
+
+.panel-title.blue { color: var(--blue); }
+.panel-title.teal { color: var(--teal); }
+
+.panel-subtitle {
+  font-size: 12px;
+  color: rgba(255,255,255,0.55);
+  letter-spacing: 0.04em;
+  margin-top: -10px;
+}
+
+.agent-card {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  min-height: 44px;
+}
+
+.agent-emoji { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+
+.agent-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 3px;
+}
+
+.agent-desc {
+  font-size: 12px;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.4;
+}
+
+.module-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.module-list li {
+  font-size: 13px;
+  color: rgba(255,255,255,0.85);
+  padding-left: 18px;
+  position: relative;
+  line-height: 1.4;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.module-list li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--teal);
+  font-weight: 700;
+}
+
+.panel-stats {
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  font-size: 11px;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.8;
+}
+
+.panel-stats strong { color: rgba(255,255,255,0.85); }
+
+/* ============================================================
+   SLIDE 4 — TECHNOLOGY EDGE
+   ============================================================ */
+#slide-4 {
+  background-image: url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=1920');
+}
+
+.s4-inner {
+  flex: 1;
+  padding: 50px 60px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.arch-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.arch-card {
+  padding: 22px 22px;
+  border-radius: 14px;
+}
+
+.arch-card:nth-child(odd)  { border-left: 3px solid var(--blue); }
+.arch-card:nth-child(even) { border-left: 3px solid var(--teal); }
+
+.arch-icon { font-size: 24px; margin-bottom: 10px; }
+
+.arch-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 6px;
+  letter-spacing: 0.05em;
+}
+
+.arch-desc {
+  font-size: 12px;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.5;
+}
+
+/* Competitive table */
+.comp-table-wrapper {
+  background: rgba(10,22,40,0.75);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 14px;
+  padding: 20px 24px;
+  backdrop-filter: blur(12px);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.comp-table {
+  width: 100%;
+  min-width: 480px;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.comp-table thead th {
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.6);
+  padding: 10px 14px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+  white-space: nowrap;
+}
+
+.comp-table thead th:first-child { color: rgba(255,255,255,0.4); }
+.comp-table thead th.cykel-col  { color: var(--teal); }
+
+.comp-table tbody tr {
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.comp-table tbody td {
+  padding: 9px 14px;
+  color: rgba(255,255,255,0.7);
+}
+
+.comp-table tbody td:first-child {
+  font-weight: 500;
+  color: rgba(255,255,255,0.85);
+  white-space: nowrap;
+}
+
+.check   { color: #2ecc71; font-weight: 700; font-size: 15px; }
+.cross   { color: #e74c3c; font-weight: 700; font-size: 15px; }
+.partial { color: #f39c12; font-weight: 700; font-size: 11px; }
+.na      { color: rgba(255,255,255,0.25); font-size: 11px; }
+
+/* ============================================================
+   SLIDE 5 — CORPORATE INFORMATION
+   ============================================================ */
+#slide-5 { background: var(--navy); }
+
+.s5-inner {
+  flex: 1;
+  padding: 50px 60px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.s5-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  flex: 1;
+}
+
+.corp-table-wrap {
+  padding: 26px;
+  border-radius: 16px;
+}
+
+.corp-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.corp-table tr { border-bottom: 1px solid rgba(255,255,255,0.07); }
+.corp-table tr:last-child { border-bottom: none; }
+
+.corp-table td {
+  padding: 11px 6px;
+  font-size: 13px;
+}
+
+.corp-table td:first-child {
+  color: rgba(255,255,255,0.45);
+  font-weight: 500;
+  width: 44%;
+  vertical-align: top;
+  padding-right: 14px;
+}
+
+.corp-table td:last-child {
+  color: var(--white);
+  font-weight: 500;
+}
+
+.timeline-wrap {
+  padding: 26px;
+  border-radius: 16px;
+}
+
+.timeline-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--teal);
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.timeline {
+  position: relative;
+  padding-left: 20px;
+  border-left: 2px solid rgba(30,111,217,0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.tl-item { position: relative; }
+
+.tl-item::before {
+  content: '';
+  position: absolute;
+  left: -26px;
+  top: 4px;
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: var(--blue);
+  border: 2px solid var(--navy);
+}
+
+.tl-date {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--blue);
+  letter-spacing: 0.1em;
+  margin-bottom: 2px;
+}
+
+.tl-event {
+  font-size: 12px;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.4;
+}
+
+/* ============================================================
+   SLIDE 6 — CONTACT / LEARN MORE
+   ============================================================ */
+#slide-6 {
+  background-image: url('https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=1920');
+}
+
+.s6-inner {
+  flex: 1;
+  padding: 60px 60px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 40px;
+}
+
+.contact-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(32px, 6vw, 64px);
+  font-weight: 800;
+  color: var(--white);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.contact-sub {
+  font-size: clamp(14px, 2vw, 18px);
+  color: rgba(255,255,255,0.65);
+  max-width: 540px;
+  line-height: 1.6;
+  margin-top: -16px;
+}
+
+.contact-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  width: 100%;
+  max-width: 720px;
+}
+
+.contact-card {
+  padding: 24px 20px;
+  border-radius: 14px;
+  text-align: center;
+  text-decoration: none;
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  transition: transform 0.2s ease;
+}
+
+.contact-card:hover { transform: translateY(-4px); }
+
+.contact-card-icon { font-size: 28px; }
+
+.contact-card-label {
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--teal);
+  text-transform: uppercase;
+}
+
+.contact-card-value {
+  font-size: 13px;
+  color: rgba(255,255,255,0.85);
+  font-weight: 500;
+  word-break: break-word;
+}
+
+.cta-button {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--blue), var(--teal));
+  color: var(--white);
+  font-family: 'Syne', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  padding: 16px 44px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  min-height: 54px;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cta-button:hover { opacity: 0.9; transform: scale(1.03); }
+
+.ticker-badge {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: rgba(255,255,255,0.5);
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   RESPONSIVE — 768px
+   ============================================================ */
+@media (max-width: 768px) {
+
+  /* Disable snap on mobile for smoother scroll */
+  html {
+    scroll-snap-type: none;
+  }
+
+  .slide {
+    scroll-snap-align: none;
+    min-height: auto;
+    padding-bottom: 0;
+  }
+
+  /* Hide desktop nav dots, show mobile scroll hint */
+  #nav-dots { display: none; }
+
+  /* Footers */
+  .slide-footer {
+    padding: 10px 16px;
+    font-size: 10px;
+    flex-direction: column;
+    gap: 2px;
+    text-align: center;
+  }
+
+  /* Inner paddings */
+  .s2-inner,
+  .s3-inner,
+  .s4-inner,
+  .s5-inner,
+  .s6-inner {
+    padding: 40px 20px 20px;
+  }
+
+  /* Cover */
+  .cover-inner { padding: 50px 24px 24px; }
+  .cover-ticker { font-size: 11px; letter-spacing: 0.2em; padding: 7px 18px; }
+
+  /* Grids → single column */
+  .s2-company-grid,
+  .stat-boxes,
+  .s3-panels,
+  .arch-grid,
+  .s5-cols,
+  .contact-cards {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  /* Slide 2 info cards */
+  .info-card { padding: 22px 18px; }
+
+  /* Slide 3 division panels */
+  .division-panel { padding: 22px 18px; }
+  .s3-panels { margin-top: 20px; flex: none; }
+
+  /* Slide 4 tech */
+  .arch-card { padding: 18px 18px; }
+  .comp-table-wrapper { padding: 16px 16px; border-radius: 12px; }
+
+  /* Slide 5 corp */
+  .corp-table-wrap,
+  .timeline-wrap { padding: 20px 18px; }
+  .s5-cols { flex: none; }
+
+  /* Slide 6 contact */
+  .contact-cards { max-width: 100%; }
+  .contact-card { padding: 20px 16px; }
+
+  /* Scroll arrow visibility */
+  .scroll-arrow { margin-top: 36px; }
+}
+
+/* ============================================================
+   RESPONSIVE — 480px (iPhone 14 = 390px)
+   ============================================================ */
+@media (max-width: 480px) {
+
+  /* Inner paddings tighter */
+  .s2-inner,
+  .s3-inner,
+  .s4-inner,
+  .s5-inner {
+    padding: 32px 16px 16px;
+    gap: 20px;
+  }
+
+  .s6-inner { padding: 40px 16px 24px; gap: 28px; }
+
+  /* Cover */
+  .cover-inner { padding: 40px 20px 20px; }
+  .cover-ticker {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    padding: 6px 16px;
+    margin-bottom: 28px;
+  }
+  .cover-divider { margin: 22px auto; }
+  .scroll-arrow { margin-top: 28px; }
+
+  /* Slide headers */
+  .slide-eyebrow { font-size: 10px; }
+
+  /* Info cards */
+  .info-card { padding: 18px 16px; }
+  .info-card-title { font-size: 11px; margin-bottom: 14px; }
+  .info-label { font-size: 11px; }
+  .info-value { font-size: 12px; }
+  .info-row { padding: 8px 0; }
+
+  /* Stat boxes */
+  .stat-box { padding: 22px 18px; }
+  .stat-label { font-size: 12px; }
+
+  /* Division panels */
+  .division-panel { padding: 18px 16px; gap: 14px; }
+  .panel-subtitle { font-size: 11px; }
+  .agent-card { padding: 12px 14px; }
+  .agent-emoji { font-size: 20px; }
+  .agent-name { font-size: 13px; }
+  .agent-desc { font-size: 11px; }
+  .module-list li { font-size: 12px; }
+  .panel-stats { font-size: 11px; }
+
+  /* Tech slide */
+  .arch-card { padding: 16px 16px; }
+  .arch-icon { font-size: 22px; }
+  .arch-title { font-size: 13px; }
+  .arch-desc { font-size: 11px; }
+  .comp-table { font-size: 11px; }
+  .comp-table thead th { padding: 8px 10px; }
+  .comp-table tbody td { padding: 7px 10px; }
+
+  /* Corp slide */
+  .corp-table-wrap,
+  .timeline-wrap { padding: 18px 16px; }
+  .corp-table td { font-size: 12px; padding: 9px 4px; }
+  .tl-event { font-size: 11px; }
+  .tl-date { font-size: 10px; }
+
+  /* Contact slide */
+  .cta-button { padding: 14px 36px; font-size: 14px; min-height: 50px; }
+  .contact-card { padding: 18px 14px; }
+  .contact-card-icon { font-size: 24px; }
+  .contact-card-value { font-size: 12px; }
+
+  /* Footer */
+  .slide-footer { font-size: 9px; }
+}
+</style>
+</head>
+<body>
+
+<!-- PROGRESS BAR -->
+<div id="progress-bar"></div>
+
+<!-- NAV DOTS (desktop only) -->
+<nav id="nav-dots" aria-label="Slide navigation">
+  <button class="nav-dot active" data-slide="0" title="Cover"></button>
+  <button class="nav-dot" data-slide="1" title="Company Overview"></button>
+  <button class="nav-dot" data-slide="2" title="Two Divisions"></button>
+  <button class="nav-dot" data-slide="3" title="Technology Edge"></button>
+  <button class="nav-dot" data-slide="4" title="Corporate Information"></button>
+  <button class="nav-dot" data-slide="5" title="Contact"></button>
+</nav>
+
+<!-- ============================================================
+     SLIDE 1 — COVER
+     ============================================================ -->
+<section class="slide slide-bg" id="slide-1" data-slide="0">
+  <div class="slide-overlay"></div>
+  <div class="slide-content">
+    <div class="cover-inner">
+      <div class="cover-ticker">LSE Main Market &nbsp;·&nbsp; CYK</div>
+      <h1 class="cover-title syne">CYKEL AI</h1>
+      <div class="cover-plc">PLC</div>
+      <div class="cover-divider"></div>
+      <p class="cover-tagline">Autonomous AI Agents for the Modern Enterprise</p>
+      <p class="cover-sub">One platform. Two massive markets. Purpose-built AI that works.</p>
+      <div class="scroll-arrow" aria-hidden="true">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Cykel AI PLC &nbsp;·&nbsp; LSE: CYK &nbsp;·&nbsp; www.cykel.ai</span>
+    <span>1 / 6</span>
+  </footer>
+</section>
+
+<!-- ============================================================
+     SLIDE 2 — COMPANY AT A GLANCE
+     ============================================================ -->
+<section class="slide" id="slide-2" data-slide="1">
+  <div class="slide-content">
+    <div class="s2-inner">
+      <div class="slide-header">
+        <div class="slide-eyebrow">Company Overview</div>
+        <h2 class="slide-title gradient-text syne">BUILT FOR ENTERPRISE AI</h2>
+        <p class="slide-subtitle">Purpose-built AI agents, listed on the London Stock Exchange, operating in two of the fastest-growing markets in tech.</p>
+      </div>
+
+      <div class="s2-company-grid">
+        <!-- COMPANY FACTS -->
+        <div class="glass info-card">
+          <div class="info-card-title blue">THE COMPANY</div>
+          <div class="info-row"><span class="info-label">Founded</span><span class="info-value">2023</span></div>
+          <div class="info-row"><span class="info-label">Listed</span><span class="info-value">LSE Main Market (CYK)</span></div>
+          <div class="info-row"><span class="info-label">Exchange journey</span><span class="info-value">AQSE Oct 2023 → LSE Jul 2024</span></div>
+          <div class="info-row"><span class="info-label">Technology</span><span class="info-value">AI Task Operating System</span></div>
+          <div class="info-row"><span class="info-label">Divisions</span><span class="info-value">2 — Cykel TOS &amp; Relay Freight AI</span></div>
+          <div class="info-row"><span class="info-label">Live AI Agents</span><span class="info-value">Lucy · Eve · Samson</span></div>
+          <div class="info-row"><span class="info-label">Revenue Model</span><span class="info-value">SaaS + Transaction Fees</span></div>
+          <div class="info-row"><span class="info-label">Enterprise ACV</span><span class="info-value">£18,000 – £60,000</span></div>
+        </div>
+
+        <!-- PLATFORM HIGHLIGHTS -->
+        <div class="glass info-card">
+          <div class="info-card-title teal">PLATFORM HIGHLIGHTS</div>
+          <div class="info-row"><span class="info-label">Architecture</span><span class="info-value">Proprietary agent orchestration</span></div>
+          <div class="info-row"><span class="info-label">Deployment</span><span class="info-value">No-code — live in days</span></div>
+          <div class="info-row"><span class="info-label">NLP Layer</span><span class="info-value">Plain-language task input</span></div>
+          <div class="info-row"><span class="info-label">Integrations</span><span class="info-value">Teams · Salesforce · HubSpot · Slack</span></div>
+          <div class="info-row"><span class="info-label">Candidate DB</span><span class="info-value">300M+ (Lucy / recruitment)</span></div>
+          <div class="info-row"><span class="info-label">Freight Markets</span><span class="info-value">50+ carrier API integrations</span></div>
+          <div class="info-row"><span class="info-label">ML Pipeline</span><span class="info-value">Continuously self-improving</span></div>
+          <div class="info-row"><span class="info-label">Tech Partner</span><span class="info-value">Crowdform Limited</span></div>
+        </div>
+      </div>
+
+      <!-- MARKET OPPORTUNITY -->
+      <div class="stat-boxes">
+        <div class="stat-box">
+          <div class="stat-number">$7.8B → $52.6B</div>
+          <div class="stat-label">AI Agent Market by 2030</div>
+          <span class="stat-cagr">CAGR 46%</span>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">$13B → $83B</div>
+          <div class="stat-label">Digital Freight Brokerage by 2030</div>
+          <span class="stat-cagr">CAGR 36.3%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Cykel AI PLC &nbsp;·&nbsp; LSE: CYK &nbsp;·&nbsp; www.cykel.ai</span>
+    <span>2 / 6</span>
+  </footer>
+</section>
+
+<!-- ============================================================
+     SLIDE 3 — ONE PLATFORM. TWO MASSIVE MARKETS.
+     ============================================================ -->
+<section class="slide slide-bg" id="slide-3" data-slide="2"
+  style="background-image:url('https://images.unsplash.com/photo-1553877522-43269d4ea984?w=1920')">
+  <div class="slide-overlay"></div>
+  <div class="slide-content">
+    <div class="s3-inner">
+      <div class="slide-header">
+        <div class="slide-eyebrow">Platform Overview</div>
+        <h2 class="slide-title syne" style="color:var(--white);">ONE PLATFORM. TWO MASSIVE MARKETS.</h2>
+        <p class="slide-subtitle">The same proprietary AI agent architecture powers both divisions — capital efficiency by design.</p>
+      </div>
+
+      <div class="s3-panels">
+
+        <!-- CYKEL TOS -->
+        <div class="division-panel panel-blue">
+          <div>
+            <div class="panel-title blue">CYKEL AI TOS</div>
+            <div class="panel-subtitle">Commercial · Live · Revenue Generating</div>
+          </div>
+
+          <div class="agent-card">
+            <div class="agent-emoji">🧑‍💼</div>
+            <div>
+              <div class="agent-name">LUCY</div>
+              <div class="agent-desc">Autonomous recruitment agent. 300M+ candidate database. Primary commercial revenue driver.</div>
+            </div>
+          </div>
+          <div class="agent-card">
+            <div class="agent-emoji">📧</div>
+            <div>
+              <div class="agent-name">EVE</div>
+              <div class="agent-desc">AI Sales Development Rep. Full outbound SDR workflow via LinkedIn &amp; email — runs autonomously.</div>
+            </div>
+          </div>
+          <div class="agent-card">
+            <div class="agent-emoji">🔍</div>
+            <div>
+              <div class="agent-name">SAMSON</div>
+              <div class="agent-desc">Enterprise Research Agent. Autonomous analysis &amp; structured reporting at enterprise scale.</div>
+            </div>
+          </div>
+
+          <div class="panel-stats">
+            <strong>Enterprise ACV:</strong> £18K – £60K &nbsp;|&nbsp;
+            <strong>Yr 1 target:</strong> 50 clients &nbsp;|&nbsp;
+            <strong>Yr 2 target:</strong> 140 clients
+          </div>
+        </div>
+
+        <!-- RELAY FREIGHT AI -->
+        <div class="division-panel panel-teal">
+          <div>
+            <div class="panel-title teal">RELAY FREIGHT AI</div>
+            <div class="panel-subtitle">In Development · Logistics Intelligence Platform</div>
+          </div>
+
+          <ul class="module-list">
+            <li>Load Intelligence &amp; Tender Management</li>
+            <li>Carrier Relationship &amp; Negotiation</li>
+            <li>Route Optimisation &amp; Multimodal Planning</li>
+            <li>Real-Time Visibility &amp; Exception Management</li>
+            <li>Documentation &amp; Compliance Automation</li>
+            <li>Freight Audit &amp; Invoice Reconciliation</li>
+          </ul>
+
+          <div class="panel-stats">
+            <strong>Total addressable market:</strong> $9.6T logistics &nbsp;|&nbsp;
+            <strong>Digital freight by 2030:</strong> $83B &nbsp;|&nbsp;
+            <strong>Pricing:</strong> £2,500 – £15,000/mo SaaS + transaction fees
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Cykel AI PLC &nbsp;·&nbsp; LSE: CYK &nbsp;·&nbsp; www.cykel.ai</span>
+    <span>3 / 6</span>
+  </footer>
+</section>
+
+<!-- ============================================================
+     SLIDE 4 — TECHNOLOGY EDGE
+     ============================================================ -->
+<section class="slide slide-bg" id="slide-4" data-slide="3"
+  style="background-image:url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=1920')">
+  <div class="slide-overlay"></div>
+  <div class="slide-content">
+    <div class="s4-inner">
+      <div class="slide-header">
+        <div class="slide-eyebrow">Proprietary Architecture</div>
+        <h2 class="slide-title syne" style="color:var(--white);">THE TECHNOLOGY EDGE</h2>
+        <p class="slide-subtitle">Proprietary architecture. Purpose-built agents. No-code deployment. A compounding moat.</p>
+      </div>
+
+      <div class="arch-grid">
+        <div class="glass arch-card">
+          <div class="arch-icon">🧠</div>
+          <div class="arch-title">NLP LAYER</div>
+          <div class="arch-desc">Natural language task instruction interpretation — non-technical operators deploy powerful workflows without writing a line of code.</div>
+        </div>
+        <div class="glass arch-card">
+          <div class="arch-icon">⚙️</div>
+          <div class="arch-title">AGENT ORCHESTRATION</div>
+          <div class="arch-desc">Core proprietary asset. Coordinates multi-agent workflow execution. Central competitive differentiator — not replicable from open-source tooling.</div>
+        </div>
+        <div class="glass arch-card">
+          <div class="arch-icon">🔌</div>
+          <div class="arch-title">API INTEGRATION</div>
+          <div class="arch-desc">Seamless connectivity to enterprise CRMs, communications platforms, and carrier networks across the full enterprise stack.</div>
+        </div>
+        <div class="glass arch-card">
+          <div class="arch-icon">📊</div>
+          <div class="arch-title">ML TRAINING PIPELINE</div>
+          <div class="arch-desc">Capabilities improve continuously from accumulated workflow data — creating a compounding competitive moat with every deployment.</div>
+        </div>
+      </div>
+
+      <!-- COMPETITIVE TABLE -->
+      <div class="comp-table-wrapper">
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th></th>
+              <th class="cykel-col">Cykel AI</th>
+              <th>Microsoft Copilot</th>
+              <th>LangChain</th>
+              <th>Digital Freight Cos</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>No-code deployment</td>
+              <td><span class="check">✓</span></td>
+              <td><span class="partial">Partial</span></td>
+              <td><span class="cross">✗</span></td>
+              <td><span class="na">N/A</span></td>
+            </tr>
+            <tr>
+              <td>End-to-end workflow automation</td>
+              <td><span class="check">✓</span></td>
+              <td><span class="partial">Partial</span></td>
+              <td><span class="check">✓</span></td>
+              <td><span class="cross">✗</span></td>
+            </tr>
+            <tr>
+              <td>Named worker products</td>
+              <td><span class="check">✓</span></td>
+              <td><span class="cross">✗</span></td>
+              <td><span class="cross">✗</span></td>
+              <td><span class="na">N/A</span></td>
+            </tr>
+            <tr>
+              <td>Freight autonomous execution</td>
+              <td><span class="check">✓</span></td>
+              <td><span class="cross">✗</span></td>
+              <td><span class="cross">✗</span></td>
+              <td><span class="partial">Partial</span></td>
+            </tr>
+            <tr>
+              <td>LSE Main Market listed</td>
+              <td><span class="check">✓</span></td>
+              <td><span class="cross">✗</span></td>
+              <td><span class="cross">✗</span></td>
+              <td><span class="cross">✗</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Cykel AI PLC &nbsp;·&nbsp; LSE: CYK &nbsp;·&nbsp; www.cykel.ai</span>
+    <span>4 / 6</span>
+  </footer>
+</section>
+
+<!-- ============================================================
+     SLIDE 5 — CORPORATE INFORMATION
+     ============================================================ -->
+<section class="slide" id="slide-5" data-slide="4">
+  <div class="slide-content">
+    <div class="s5-inner">
+      <div class="slide-header">
+        <div class="slide-eyebrow">Company Details</div>
+        <h2 class="slide-title gradient-text syne">CORPORATE INFORMATION</h2>
+        <p class="slide-subtitle">Registered in England &amp; Wales. Listed on the London Stock Exchange Main Market.</p>
+      </div>
+
+      <div class="s5-cols">
+        <!-- Registered Details -->
+        <div class="glass corp-table-wrap">
+          <div class="info-card-title teal" style="margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,0.1);">REGISTERED DETAILS</div>
+          <table class="corp-table">
+            <tr><td>Company</td><td>Cykel AI PLC</td></tr>
+            <tr><td>Company No.</td><td>11155663</td></tr>
+            <tr><td>LEI</td><td style="font-size:11px;word-break:break-all;">213800QEO6L6JAS62H02</td></tr>
+            <tr><td>Registered Office</td><td>16 Great Queen Street, London WC2B 5DG</td></tr>
+            <tr><td>Website</td><td><a href="https://www.cykel.ai" style="color:var(--teal);text-decoration:none;">www.cykel.ai</a></td></tr>
+            <tr><td>Auditors</td><td>Kreston Reeves LLP</td></tr>
+            <tr><td>Legal Advisers</td><td>Druces LLP</td></tr>
+            <tr><td>Tech Partner</td><td>Crowdform Limited</td></tr>
+            <tr><td>Enquiries</td><td><a href="mailto:ir@cykel.ai" style="color:var(--teal);text-decoration:none;">ir@cykel.ai</a></td></tr>
+            <tr><td>Ticker</td><td><span style="color:var(--blue);font-weight:700;">LSE: CYK</span></td></tr>
+            <tr><td>FY End</td><td>31 January</td></tr>
+          </table>
+        </div>
+
+        <!-- Timeline -->
+        <div class="glass timeline-wrap">
+          <div class="timeline-title">KEY MILESTONES</div>
+          <div class="timeline">
+            <div class="tl-item">
+              <div class="tl-date">AUG 2023</div>
+              <div class="tl-event">Cykel AI incorporated in England &amp; Wales</div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-date">OCT 2023</div>
+              <div class="tl-event">AQSE listing; initial placing raises £2.3M</div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-date">JUL 2024</div>
+              <div class="tl-event">Reverse takeover with Mustang Energy PLC; LSE Main Market admission as Cykel AI PLC</div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-date">NOV 2024</div>
+              <div class="tl-event">Lucy (recruitment agent) commercially launched</div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-date">DEC 2024</div>
+              <div class="tl-event">Eve (SDR agent) and Samson (research agent) launched; live commercial customers</div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-date">EARLY 2025</div>
+              <div class="tl-event">Platform scaling; enterprise customer expansion underway</div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-date" style="color:var(--teal);">AHEAD</div>
+              <div class="tl-event" style="color:var(--white);font-weight:500;">Relay Freight AI development; EU &amp; Asia-Pacific expansion</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Cykel AI PLC &nbsp;·&nbsp; LSE: CYK &nbsp;·&nbsp; www.cykel.ai</span>
+    <span>5 / 6</span>
+  </footer>
+</section>
+
+<!-- ============================================================
+     SLIDE 6 — CONTACT / LEARN MORE
+     ============================================================ -->
+<section class="slide slide-bg" id="slide-6" data-slide="5"
+  style="background-image:url('https://images.unsplash.com/photo-1553877522-43269d4ea984?w=1920')">
+  <div class="slide-overlay" style="background:rgba(10,22,40,0.88);"></div>
+  <div class="slide-content">
+    <div class="s6-inner">
+
+      <div class="cover-ticker" style="margin-bottom:0;">LSE Main Market &nbsp;·&nbsp; CYK</div>
+
+      <div>
+        <h2 class="contact-title syne">Let's Talk.</h2>
+        <p class="contact-sub">Cykel AI brings autonomous AI agents to enterprise — purpose-built, production-ready, and live today. Get in touch to learn more or request a platform demo.</p>
+      </div>
+
+      <div class="contact-cards">
+        <a href="https://www.cykel.ai" target="_blank" rel="noopener" class="glass contact-card">
+          <div class="contact-card-icon">🌐</div>
+          <div class="contact-card-label">Website</div>
+          <div class="contact-card-value">www.cykel.ai</div>
+        </a>
+        <a href="mailto:ir@cykel.ai" class="glass contact-card">
+          <div class="contact-card-icon">✉️</div>
+          <div class="contact-card-label">Enquiries</div>
+          <div class="contact-card-value">ir@cykel.ai</div>
+        </a>
+        <div class="glass contact-card">
+          <div class="contact-card-icon">📈</div>
+          <div class="contact-card-label">Listed</div>
+          <div class="contact-card-value">LSE Main Market<br><span style="color:var(--blue);font-weight:700;">Ticker: CYK</span></div>
+        </div>
+      </div>
+
+      <a href="https://www.cykel.ai" target="_blank" rel="noopener" class="cta-button">
+        Explore Cykel AI →
+      </a>
+
+      <div class="ticker-badge">Cykel AI PLC &nbsp;·&nbsp; Company No. 11155663 &nbsp;·&nbsp; 16 Great Queen Street, London WC2B 5DG</div>
+
+    </div>
+  </div>
+  <footer class="slide-footer">
+    <span>Cykel AI PLC &nbsp;·&nbsp; LSE: CYK &nbsp;·&nbsp; www.cykel.ai</span>
+    <span>6 / 6</span>
+  </footer>
+</section>
+
+<!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
+<script>
+(function () {
+  'use strict';
+
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const dots   = Array.from(document.querySelectorAll('.nav-dot'));
+  const bar    = document.getElementById('progress-bar');
+  let currentSlide = 0;
+
+  /* ---- Progress bar & dot sync ---- */
+  function updateUI(idx) {
+    currentSlide = idx;
+    const pct = slides.length > 1 ? (idx / (slides.length - 1)) * 100 : 0;
+    bar.style.width = pct + '%';
+    dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+  }
+
+  /* ---- Intersection Observer ---- */
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting && e.intersectionRatio >= 0.5) {
+        const idx = slides.indexOf(e.target);
+        if (idx !== -1) updateUI(idx);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  slides.forEach(s => io.observe(s));
+
+  /* ---- Nav dot clicks ---- */
+  dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+      slides[i].scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  /* ---- Keyboard navigation ---- */
+  document.addEventListener('keydown', e => {
+    if (['ArrowDown','ArrowRight','PageDown'].includes(e.key)) {
+      e.preventDefault();
+      slides[Math.min(currentSlide + 1, slides.length - 1)].scrollIntoView({ behavior: 'smooth' });
+    }
+    if (['ArrowUp','ArrowLeft','PageUp'].includes(e.key)) {
+      e.preventDefault();
+      slides[Math.max(currentSlide - 1, 0)].scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+
+  /* ---- Touch swipe ---- */
+  let touchStartY = 0;
+  let touchStartX = 0;
+
+  document.addEventListener('touchstart', e => {
+    touchStartY = e.touches[0].clientY;
+    touchStartX = e.touches[0].clientX;
+  }, { passive: true });
+
+  document.addEventListener('touchend', e => {
+    const diffY = touchStartY - e.changedTouches[0].clientY;
+    const diffX = touchStartX - e.changedTouches[0].clientX;
+    // Only trigger vertical swipe on desktop snap layout
+    if (window.innerWidth > 768 && Math.abs(diffY) > Math.abs(diffX) && Math.abs(diffY) > 50) {
+      const dir = diffY > 0 ? 1 : -1;
+      const target = Math.min(Math.max(currentSlide + dir, 0), slides.length - 1);
+      slides[target].scrollIntoView({ behavior: 'smooth' });
+    }
+  }, { passive: true });
+
+  /* Init */
+  updateUI(0);
+})();
+</script>
+</body>
+</html>
